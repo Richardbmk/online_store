@@ -1,0 +1,1 @@
+console.log('Thi is the public js file!')
