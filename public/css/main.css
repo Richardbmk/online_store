@@ -61,15 +61,22 @@ form {
     padding: 0;
 }
 
-.main-header__item a {
+.main-header__item a, 
+.main-header__item button {
+    font: inherit;
+    background: transparent;
     text-decoration: none;
+    border: none;
     color: white;
+    cursor: pointer;
 }
 
 .main-header__item a:hover,
-.main-header__item a:active 
-.main-header__item a.active {
-    color: black;
+.main-header__item a:active,
+.main-header__item a.active,
+.main-header__item button:hover,
+.main-header__item button:active {
+  color:black;
 }
 
 .mobile-nav {
@@ -210,6 +217,21 @@ form {
     display: none;
 }
 
+.user-message {
+    margin: auto;
+    width: 90%;
+    border: 1px solid gray;
+    background-color: skyblue;
+    padding: 0.5rem;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.user-message--error {
+    border-color: red;
+    background: tomato;
+}
+
 @media (min-width: 768px) {
     .main-header__nav {
         display: flex;
@@ -217,6 +239,10 @@ form {
 
     #side-menu-toggle {
         display: none;
+    }
+
+    .user-message {
+        width: 30rem;
     }
 }
 
