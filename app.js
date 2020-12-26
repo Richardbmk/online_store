@@ -6,11 +6,11 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 
+
 const User = require('./models/user');
 
 require('dotenv').config();
 const db_url_cloud = process.env.DB_URL_CLOUD;
-
 
 const store = new MongoDBStore({
     uri: db_url_cloud,
