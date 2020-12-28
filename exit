@@ -1,0 +1,47 @@
+[33mcommit 7d02b9f646ac4fa8abf473c97489932d963c8910[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Mon Dec 28 22:19:20 2020 +0100
+
+    Dockerization and terrafom in process
+
+[33mcommit f9383bd0db45d786392cf6a32d19431554534227[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Mon Dec 28 22:13:25 2020 +0100
+
+    Dockerization and terrafom in process
+
+[33mcommit 545c8ad81ad951392e97766bd765ea53b5b9a22b[m[33m ([m[1;31mmaster/master[m[33m, [m[1;31mdev/dev[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Mon Dec 28 13:12:33 2020 +0100
+
+    advanced authentication implemeted
+
+[33mcommit 6e351e16f51df7ac82012822136bdc47a5b1b5b2[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Sat Dec 26 12:47:58 2020 +0100
+
+    message sender implemented
+
+[33mcommit 7f7e7779a77e5b271eda7771783849a5d734e93f[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Thu Dec 24 12:35:10 2020 +0100
+
+    basic authentication implemented
+
+[33mcommit 679ea1bc72758166b199c731c48adc8b0e7cf14d[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Tue Dec 22 20:29:13 2020 +0100
+
+    cokies and sessions
+
+[33mcommit 826f49e8c59b0a8a883e6a9b5ea4c7ce36e6e96e[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Tue Dec 22 13:10:57 2020 +0100
+
+    readme file addded
+
+[33mcommit 9a7127b5618424a5538106dc8043192beeadca4a[m
+Author: Ricardo <rdobmk@gmail.com>
+Date:   Mon Dec 14 19:52:13 2020 +0100
+
+    first commit
