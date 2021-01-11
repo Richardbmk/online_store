@@ -1,55 +1,45 @@
-PROJECT_ID=ecommerce
+PROJECT_ID=ecommerce-devops
 AWS_REGION=us-east-2
 ENV=staging
 
 
-run-local:
-	docker-compose up
-
 create-tf-backend-bucket:
-	aws s3 mb s3://$(PROJECT_ID)-terraforms --region $(AWS_REGION)
-
-aws-bucket-versioning:
-	aws s3api put-bucket-versioning --bucket $(PROJECT_ID)-terraforms --versioning-configuration Status=Enabled
-
-aws-bucket-encryption:
-
-	aws s3api put-bucket-encryption \
-		--bucket $(PROJECT_ID)-terraforms \
-		--server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
-
-create-tf-backend-bucket-folder:
-	aws s3api put-object --bucket $(PROJECT_ID)-terraforms --key terraformstate/ --region $(AWS_REGION)
+	aws s3 mb s3://rick-$(PROJECT_ID)-tfstate --region $(AWS_REGION) && \
+	aws s3api put-bucket-versioning --bucket rick-$(PROJECT_ID)-tfstate --versioning-configuration Status=Enabled
 
 create-tf-backend-dynamodb_tb:
-	aws dynamodb create-table --table-name $(PROJECT_ID)-statelock-terraform \
+	aws dynamodb create-table --table-name $(PROJECT_ID)-tf-state-lock \
 	 --attribute-definitions AttributeName=LockID,AttributeType=S \
 	  --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-	   --key-schema AttributeName=LockID,KeyType=HASH --region us-east-2 
+	   --key-schema AttributeName=LockID,KeyType=HASH --region $(AWS_REGION)
+
+create-ecr-for-app:
+	aws ecr create-repository \
+		--repository-name $(PROJECT_ID) \
+		--image-scanning-configuration scanOnPush=true \
+		--region $(AWS_REGION)
 
 
-terraform-create-workspace:
-	cd terraform && \
-	 terraform workspace new $(ENV)
+tf-init:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform init
 
-terraform-init:
-	cd terraform && \
-	 terraform workspace select $(ENV) && terraform init
+tf-fmt:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform fmt
 
-aws-ecr-authentication:
-	aws ecr get-login-password \
-	 --region us-east-2 | docker login \
-	  --username AWS \
-	   --password-stdin 677092314568.dkr.ecr.us-east-2.amazonaws.com
+tf-validate:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform validate
 
-aws-ecr-dockerimage-build:
-	docker build -t ecommerce .
+tf-plan:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform plan
 
-aws-tag-ecr-image:
-	docker tag ecommerce:latest 677092314568.dkr.ecr.us-east-2.amazonaws.com/ecommerce:latest
+tf-apply:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform apply
 
-aws-ecr-push-image:
-	docker push 677092314568.dkr.ecr.us-east-2.amazonaws.com/ecommerce:latest
+tf-destroy:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform destroy
 
+tf-workspace-list:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform workspace list
 
-
+tf-workspace-new-dev:
+	docker-compose -f terraform/docker-compose.yml run --rm terraform workspace new dev
