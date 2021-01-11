@@ -9,8 +9,12 @@ const csrf = require('csurf');
 
 const User = require('./models/user');
 
+// MongoDB Atlas configuration
 require('dotenv').config();
-const db_url_cloud = process.env.DB_URL_CLOUD;
+const db_user = process.env.DB_USERNAME;
+const db_password = process.env.DB_PASSWORD;
+const db_name = process.env.DB_NAME;
+const db_url_cloud = `mongodb+srv://${db_user}:${db_password}@cluster0-a0s4s.mongodb.net/${db_name}?retryWrites=true&w=majority`;
 
 const store = new MongoDBStore({
     uri: db_url_cloud,
