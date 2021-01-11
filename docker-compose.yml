@@ -1,28 +1,33 @@
 version: '3'
+
 services: 
-  api-server:
+  api:
     build: ./
-    env_file: ./.env
     ports:
       - '3000:3000'
-    networks: 
-      - ecommerce-app
-    depends_on: 
-      - mongo
-  mongo:
-    image: mongo:3.6-xenial
+    # networks: 
+    #   - ecommerce-app
+    # depends_on: 
+    #   - mongo
     environment:
-      - MONGO_INITDB_DATABASE=store
-    ports:
-      - "27017:27017"
-    networks: 
-      - ecommerce-app
-    volumes: 
-      - mongo-data:/data/db
+      - DB_URL_CLOUD
+      - SENDGRID_APY_LEY
 
-networks: 
-  ecommerce-app:
-    driver: bridge
-volumes: 
-  mongo-data:
-    driver: local
+#   mongo:
+#     image: mongo:3.6-xenial
+#     # environment:
+#       # - MONGO_INITDB_DATABASE=store
+#     ports:
+#       - "27017:27017"
+#     networks: 
+#       - ecommerce-app
+#     volumes: 
+#       - mongo-data:/data/db
+
+# networks: 
+#   ecommerce-app:
+#     driver: bridge
+
+# volumes: 
+#   mongo-data:
+#     driver: local

@@ -35,3 +35,21 @@ terraform-create-workspace:
 terraform-init:
 	cd terraform && \
 	 terraform workspace select $(ENV) && terraform init
+
+aws-ecr-authentication:
+	aws ecr get-login-password \
+	 --region us-east-2 | docker login \
+	  --username AWS \
+	   --password-stdin 677092314568.dkr.ecr.us-east-2.amazonaws.com
+
+aws-ecr-dockerimage-build:
+	docker build -t ecommerce .
+
+aws-tag-ecr-image:
+	docker tag ecommerce:latest 677092314568.dkr.ecr.us-east-2.amazonaws.com/ecommerce:latest
+
+aws-ecr-push-image:
+	docker push 677092314568.dkr.ecr.us-east-2.amazonaws.com/ecommerce:latest
+
+
+
