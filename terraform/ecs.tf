@@ -60,12 +60,6 @@ resource "aws_ecs_task_definition" "app" {
   tags = local.common_tags
 }
 
-resource "aws_default_vpc" "default" {
-  tags = {
-    Name = "Default VPC"
-  }
-}
-
 resource "aws_security_group" "ecs_service" {
   description = "Access for the ECS Service"
   name        = "${local.prefix}-ecs-service"
