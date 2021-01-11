@@ -82,6 +82,7 @@ resource "aws_ecs_service" "app" {
   launch_type     = "FARGATE"
 
   network_configuration {
+    assign_public_ip = true
     subnets = [
       aws_default_subnet.default_az1.id,
     ]
