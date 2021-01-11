@@ -14,6 +14,8 @@ resource "aws_iam_policy" "task_execution_role_policy" {
 resource "aws_iam_role" "task_execution_role" {
   name               = "${local.prefix}-task-exec-role"
   assume_role_policy = file("./templates/ecs/assume-role-policy.json")
+
+  tags = local.common_tags
 }
 
 resource "aws_iam_role_policy_attachment" "task_execution_role" {
@@ -64,6 +66,14 @@ resource "aws_security_group" "ecs_service" {
   description = "Access for the ECS Service"
   name        = "${local.prefix}-ecs-service"
   vpc_id      = aws_default_vpc.default.id
+
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
     from_port = 3000
