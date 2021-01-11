@@ -63,7 +63,7 @@ resource "aws_ecs_task_definition" "app" {
 resource "aws_security_group" "ecs_service" {
   description = "Access for the ECS Service"
   name        = "${local.prefix}-ecs-service"
-  vpc_id      = aws_default_vpc.default.id
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     from_port = 3000
