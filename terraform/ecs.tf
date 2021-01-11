@@ -80,4 +80,11 @@ resource "aws_ecs_service" "app" {
   task_definition = aws_ecs_task_definition.app.family
   desired_count   = 1
   launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets = [
+      aws_subnet.public_a.id,
+    ]
+    security_groups = [aws_security_group.ecs_service.id]
+  }
 }
