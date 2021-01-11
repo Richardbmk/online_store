@@ -2,5 +2,5 @@
 
 ## Work in progress...
 
-## Automated push from gitlab to github.
+Automated push from gitlab to github.
 
