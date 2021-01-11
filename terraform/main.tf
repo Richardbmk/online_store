@@ -9,6 +9,6 @@ terraform {
     key            = "ecommerce-app.tfstate"
     encrypt        = true
     region         = "us-east-2"
-    dynamodb_table = "rick-ecommerce-devops-tfstate"
+    dynamodb_table = "ecommerce-devops-tf-state-lock"
   }
 } 
