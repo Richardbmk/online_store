@@ -63,7 +63,7 @@ resource "aws_ecs_task_definition" "app" {
 resource "aws_security_group" "ecs_service" {
   description = "Access for the ECS Service"
   name        = "${local.prefix}-ecs-service"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = aws_default_vpc.default.id
 
   ingress {
     from_port = 3000
@@ -83,7 +83,7 @@ resource "aws_ecs_service" "app" {
 
   network_configuration {
     subnets = [
-      aws_subnet.public_a.id,
+      aws_default_subnet.default_az1.id,
     ]
     security_groups = [aws_security_group.ecs_service.id]
   }
