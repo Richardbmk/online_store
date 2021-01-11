@@ -11,4 +11,16 @@ terraform {
     region         = "us-east-2"
     dynamodb_table = "ecommerce-devops-tf-state-lock"
   }
-} 
+}
+
+locals {
+  prefix = "${var.prefix}-${terraform.workspace}"
+  common_tags = {
+    Enviroment = terraform.workspace
+    Project    = var.project
+    Owner      = var.contact
+    ManageBy   = "Terraform"
+  }
+}
+
+data "aws_region" "current" {}
