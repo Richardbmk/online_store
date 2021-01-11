@@ -38,6 +38,9 @@ data "template_file" "app_container_definitions" {
   template = file("./templates/ecs/container-definitions.json.tpl")
 
   vars = {
+    db_name          = var.db_name
+    db_username      = var.db_username
+    db_password          = var.db_password
     app_image        = var.ecr_image_app
     log_group_name   = aws_cloudwatch_log_group.ecs_task_logs.name
     log_group_region = data.aws_region.current.name
