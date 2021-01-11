@@ -1,6 +1,6 @@
 [
     {
-        "name": "api",
+        "name": "ecommerce-app",
         "image": "${app_image}",
         "essential": true,
         "memoryReservation": 256,
@@ -21,13 +21,6 @@
             {
                 "containerPort": 3000,
                 "hostPort": 3000
-            }
-        ],
-        "mountPoints": [
-            {
-                "readOnly": false,
-                "containerPath": "/vol/web",
-                "sourceVolume": "static"
             }
         ]
     }
