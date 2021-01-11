@@ -5,3 +5,5 @@
 testing if the change is uploaded in Github and Gitlab at the same time, with the same git remote
 
 This new change work?
+
+Automated mirroring in gitlab setting.
