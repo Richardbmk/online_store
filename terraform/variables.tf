@@ -1,5 +1,5 @@
 variable "prefix" {
-  default = "str"
+  default = "ecom"
 }
 
 variable "project" {
@@ -13,4 +13,16 @@ variable "contact" {
 variable "ecr_image_app" {
   description = "ECR image for Ecommerce-app"
   default     = "677092314568.dkr.ecr.us-east-2.amazonaws.com/ecommerce-devops"
+}
+
+variable "db_username" {
+  description = "Username for the MongoDB Atlas instance"
+}
+
+variable "db_password" {
+  description = "Password for the MongoDB Atlas instance"
+}
+
+variable "db_name" {
+  description = "Name of the database inside MongoDB Atlas"
 }
