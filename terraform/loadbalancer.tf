@@ -35,7 +35,8 @@ resource "aws_lb_listener" "app" {
   protocol          = "HTTP"
 
   default_action {
-    type = "redirect"
+    type             = "redirect"
+    target_group_arn = aws_lb_target_group.app.arn
 
     redirect {
       port        = "443"
