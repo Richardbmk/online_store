@@ -30,3 +30,18 @@ variable "db_name" {
 variable "sendgrid_api_key" {
   description = "Api key of the E-mail service"
 }
+
+variable "dns_zone_name" {
+  description = "Domain name"
+  default     = "iotcloudsolutions.com"
+}
+
+variable "subdomain" {
+  description = "Subdomain per environment"
+  type        = map(string)
+  default = {
+    production = "ecommerce"
+    staging    = "ecommerce.staging"
+    dev        = "ecommerce.dev"
+  }
+}
