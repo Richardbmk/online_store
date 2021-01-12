@@ -5,9 +5,9 @@
         "essential": true,
         "memoryReservation": 256,
         "environment": [
-            {"name": "DB_NAME", "value": "${db_name}"},
-            {"name": "DB_USERNAME", "value": "${db_username}"},
-            {"name": "DB_PASSWORD", "value": "${db_password}"}
+            {"name": "DB_NAME", "value": "${DB_NAME}"},
+            {"name": "DB_USERNAME", "value": "${DB_USERNAME}"},
+            {"name": "DB_PASSWORD", "value": "${DB_PASSWORD}"}
         ],
         "logConfiguration": {
             "logDriver": "awslogs",
