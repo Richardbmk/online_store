@@ -1,5 +1,5 @@
 variable "prefix" {
-  default = "ecom"
+  default = "ecommerce"
 }
 
 variable "project" {

@@ -66,7 +66,7 @@ resource "aws_ecs_task_definition" "app" {
 resource "aws_security_group" "ecs_service" {
   description = "Access for the ECS Service"
   name        = "${local.prefix}-ecs-service"
-  vpc_id      = aws_default_vpc.default.id
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     protocol    = "tcp"
@@ -75,7 +75,7 @@ resource "aws_security_group" "ecs_service" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress {
+  ingress {
     protocol    = "tcp"
     from_port   = 80
     to_port     = 80
@@ -83,7 +83,7 @@ resource "aws_security_group" "ecs_service" {
   }
 
 
-  egress {
+  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -110,7 +110,8 @@ resource "aws_ecs_service" "app" {
   network_configuration {
     assign_public_ip = true
     subnets = [
-      aws_default_subnet.default_az1.id,
+      aws_subnet.public_a.id,
+      aws_subnet.public_b.id
     ]
     security_groups = [aws_security_group.ecs_service.id]
   }
