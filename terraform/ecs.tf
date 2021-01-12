@@ -68,6 +68,13 @@ resource "aws_security_group" "ecs_service" {
   name        = "${local.prefix}-ecs-service"
   vpc_id      = aws_vpc.main.id
 
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   ingress {
     protocol    = "tcp"
     from_port   = 22
@@ -81,7 +88,6 @@ resource "aws_security_group" "ecs_service" {
     to_port     = 80
     cidr_blocks = ["0.0.0.0/0"]
   }
-
 
   ingress {
     from_port   = 443
