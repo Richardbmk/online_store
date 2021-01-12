@@ -14,4 +14,11 @@ In the image you can see a simplification of the architecture with AWS.
 
 
 
+You can run the applicaton with:
+- `npm start`
+- docker build and run
+- docker-compose up --build  
+
+
+
 
