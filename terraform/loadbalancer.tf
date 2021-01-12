@@ -21,7 +21,7 @@ resource "aws_lb_target_group" "app" {
   health_check {
     healthy_threshold   = "3"
     interval            = "90"
-    protocol            = "HTTP"
+    protocol            = "HTTPS"
     matcher             = "200-299"
     timeout             = "20"
     path                = "/"
@@ -35,14 +35,26 @@ resource "aws_lb_listener" "app" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "redirect"
-    target_group_arn = aws_lb_target_group.app.arn
+    type = "redirect"
 
     redirect {
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_301"
     }
+  }
+}
+
+resource "aws_lb_listener" "app_https" {
+  load_balancer_arn = aws_lb.app.arn
+  port              = 443
+  protocol          = "HTTPS"
+
+  certificate_arn = aws_acm_certificate_validation.cert.certificate_arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.app.arn
   }
 }
 
@@ -70,13 +82,6 @@ resource "aws_security_group" "lb" {
     protocol    = "tcp"
     from_port   = 3000
     to_port     = 3000
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
