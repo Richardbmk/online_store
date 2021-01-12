@@ -10,10 +10,10 @@ services:
     # depends_on: 
     #   - mongo
     environment:
-      - db_username
-      - db_password
-      - db_name
-      - sendgrid_apy_key
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - SENDGRID_API_KEY
 
 #   mongo:
 #     image: mongo:3.6-xenial
