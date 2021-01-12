@@ -107,10 +107,11 @@ resource "aws_ecs_service" "app" {
     ]
     security_groups = [aws_security_group.ecs_service.id]
   }
+
   load_balancer {
     target_group_arn = aws_lb_target_group.app.arn
-    container_name   = "proxy"
-    container_port   = 8000
+    container_name   = var.ecr_image_app
+    container_port   = 3000
   }
 
   depends_on = [aws_lb_listener.app_https]
