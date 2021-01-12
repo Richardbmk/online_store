@@ -19,7 +19,13 @@ resource "aws_lb_target_group" "app" {
   port        = 3000
 
   health_check {
-    path = "/admin/login"
+    healthy_threshold   = "3"
+    interval            = "90"
+    protocol            = "HTTP"
+    matcher             = "200-299"
+    timeout             = "20"
+    path                = "/"
+    unhealthy_threshold = "2"
   }
 }
 
@@ -36,19 +42,6 @@ resource "aws_lb_listener" "app" {
       protocol    = "HTTPS"
       status_code = "HTTP_301"
     }
-  }
-}
-
-resource "aws_lb_listener" "app_https" {
-  load_balancer_arn = aws_lb.app.arn
-  port              = 443
-  protocol          = "HTTPS"
-
-  certificate_arn = aws_acm_certificate_validation.cert.certificate_arn
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.app.arn
   }
 }
 
