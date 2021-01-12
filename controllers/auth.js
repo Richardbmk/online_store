@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const { reset } = require('nodemon');
 
 require('dotenv').config();
-const sendGrid_APY_Key = process.env.sendgrid_apy_key;
+const sendGrid_APY_Key = process.env.SENDGRID_API_KEY;
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {

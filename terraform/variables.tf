@@ -26,3 +26,7 @@ variable "db_password" {
 variable "db_name" {
   description = "Name of the database inside MongoDB Atlas"
 }
+
+variable "sendgrid_api_key" {
+  description = "Api key of the E-mail service"
+}
