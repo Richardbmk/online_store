@@ -14,6 +14,8 @@ resource "aws_iam_policy" "task_execution_role_policy" {
 resource "aws_iam_role" "task_execution_role" {
   name               = "${local.prefix}-task-exec-role"
   assume_role_policy = file("./templates/ecs/assume-role-policy.json")
+
+  tags = local.common_tags
 }
 
 resource "aws_iam_role_policy_attachment" "task_execution_role" {
@@ -66,9 +68,32 @@ resource "aws_security_group" "ecs_service" {
   vpc_id      = aws_default_vpc.default.id
 
   ingress {
-    from_port = 3000
-    to_port   = 3000
-    protocol  = "tcp"
+    protocol    = "tcp"
+    from_port   = 22
+    to_port     = 22
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    protocol    = "tcp"
+    from_port   = 80
+    to_port     = 80
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = local.common_tags
@@ -82,6 +107,7 @@ resource "aws_ecs_service" "app" {
   launch_type     = "FARGATE"
 
   network_configuration {
+    assign_public_ip = true
     subnets = [
       aws_default_subnet.default_az1.id,
     ]

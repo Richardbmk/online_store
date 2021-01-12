@@ -10,7 +10,9 @@ services:
     # depends_on: 
     #   - mongo
     environment:
-      - DB_URL_CLOUD
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
       - SENDGRID_APY_LEY
 
 #   mongo:
