@@ -4,6 +4,9 @@ image:
     - '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
+
+
+
 stages:
   - Test and Lint
   - Build and Push
@@ -19,7 +22,7 @@ Test and Lint:
     - echo "Test and Lint"
     - echo "We are not Testing and Linting the Ecommerce App for the moment..."
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH == /^(master|production)$/'
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Validate Terraform:
   stage: Test and Lint
@@ -30,7 +33,7 @@ Validate Terraform:
     - terraform validate
     - terraform fmt -check
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH == /^(master|production)$/'
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Build and Push:
   image: docker:19.03.5
@@ -47,7 +50,7 @@ Build and Push:
     - docker tag $ECR_REPO:$CI_COMMIT_SHORT_SHA $ECR_REPO:latest
     - docker push $ECR_REPO:latest
   rules:
-    - if: '$CI_COMMIT_BRANCH == /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Staging Plan:
   stage: Staging Plan
@@ -59,7 +62,7 @@ Staging Plan:
     - terraform workspace select staging || terraform workspace new staging
     - terraform plan
   rules:
-    - if: '$CI_COMMIT_BRANCH == /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Staging Apply:
   stage: Staging Apply
@@ -71,7 +74,7 @@ Staging Apply:
     - terraform workspace select staging
     - terraform apply -auto-approve
   rules:
-    - if: '$CI_COMMIT_BRANCH == /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Production Plan:
   stage: Production Plan
@@ -106,7 +109,7 @@ Staging Destroy:
     - terraform workspace select staging
     - terraform destroy -auto-approve
   rules:
-    - if: '$CI_COMMIT_BRANCH == /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
       when: manual
 
 Production Destroy:
