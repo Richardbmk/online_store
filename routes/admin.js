@@ -15,9 +15,9 @@ router.post('/add-product',
             .isLength({ min: 3 })
             .withMessage('The title length must be 3 characters or more')
             .trim(),
-        body('imageUrl')
-            .isURL()
-            .withMessage('Enter a valid image URL please'),
+        // body('imageUrl')
+        //     .isURL()
+        //     .withMessage('Enter a valid image URL please'),
         body('price')
             .isFloat()
             .withMessage('Price must be with "." and not ","'),
@@ -43,9 +43,9 @@ router.post('/edit-product',
             .isLength({ min: 3 })
             .withMessage('The title length must be 3 characters or more')
             .trim(),
-        body('imageUrl')
-            .isURL()
-            .withMessage('Enter a valid image URL please'),
+        // body('imageUrl')
+        //     .isURL()
+        //     .withMessage('Enter a valid image URL please'),
         body('price')
             .isFloat()
             .withMessage('Price must be with "." and not ","'),
