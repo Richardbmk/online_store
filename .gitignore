@@ -37,3 +37,5 @@ override.tf.json
 # End of https://www.gitignore.io/api/python,terraform
 .vscode
 gitflow_notes.txt
+
+error-playground.js
