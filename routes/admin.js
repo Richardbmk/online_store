@@ -15,9 +15,9 @@ router.post('/add-product',
             .isLength({ min: 3 })
             .withMessage('The title length must be 3 characters or more')
             .trim(),
-        body('imageUrl')
-            .isURL()
-            .withMessage('Enter a valid image URL please'),
+        // body('imageUrl')
+        //     .isURL()
+        //     .withMessage('Enter a valid image URL please'),
         body('price')
             .isFloat()
             .withMessage('Price must be with "." and not ","'),
@@ -43,9 +43,9 @@ router.post('/edit-product',
             .isLength({ min: 3 })
             .withMessage('The title length must be 3 characters or more')
             .trim(),
-        body('imageUrl')
-            .isURL()
-            .withMessage('Enter a valid image URL please'),
+        // body('imageUrl')
+        //     .isURL()
+        //     .withMessage('Enter a valid image URL please'),
         body('price')
             .isFloat()
             .withMessage('Price must be with "." and not ","'),
@@ -59,6 +59,10 @@ router.post('/edit-product',
 );
 
 // /admin/delete-product/productID
-router.post('/delete-product', isAuth, adminController.postDeleteProduct)
+// router.post('/delete-product', isAuth, adminController.postDeleteProduct);
+
+
+// /product/:productId
+router.delete('/product/:productId', isAuth, adminController.deleteProduct);
 
 module.exports = router;
