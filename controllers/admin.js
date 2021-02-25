@@ -190,6 +190,7 @@ exports.getProducts = (req, res, nex) => {
         });
 };
 
+// I'm not using postDeleteProduct anymore!
 exports.postDeleteProduct = (req, res, next) => {
     productId = req.body.productId;
     Product.findById(productId).then(
@@ -209,5 +210,26 @@ exports.postDeleteProduct = (req, res, next) => {
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
+    });
+};
+
+// This is the new implementation of deleting products
+exports.deleteProduct = (req, res, next) => {
+    productId = req.params.productId;
+    Product.findById(productId).then(
+        product => {
+            if (!product) {
+                return next(new Error('Product Not Found!'))
+            }
+            fileHelper.deleteFile(product.imageUrl);
+            return Product.deleteOne({ _id: productId, userId: req.user._id })
+        }
+    ).then(() => {
+            console.log('PRODUCT DELETED');
+            res.status(200).json({message: 'Success!'});
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ message: 'Deleting product failed.'});
     });
 };
