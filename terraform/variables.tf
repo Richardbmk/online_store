@@ -31,6 +31,10 @@ variable "sendgrid_api_key" {
   description = "Api key of the E-mail service"
 }
 
+variable "stripe_secret_key" {
+  description = "Api key of the Strype service"
+}
+
 variable "dns_zone_name" {
   description = "Domain name"
   default     = "iotcloudsolutions.com"
