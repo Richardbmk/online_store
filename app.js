@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -6,6 +8,9 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
 
 
 const User = require('./models/user');
@@ -49,6 +54,16 @@ const adminRoutes = require('./routes/admin');
 const authRoutes = require('./routes/auth');
 const errorController = require('./controllers/error');
 const flash = require('connect-flash');
+const { Stream } = require('stream');
+
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname, 'access.log'),
+    { flags: 'a' }
+);
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -113,7 +128,7 @@ app.use(errorController.get404);
 mongoose
     .connect(db_url_cloud)
     .then(() => {
-        app.listen(3000, () =>{
+        app.listen(process.env.PORT || 3000, () =>{
             console.log("This server in running in port 3000");
         }); 
     })
